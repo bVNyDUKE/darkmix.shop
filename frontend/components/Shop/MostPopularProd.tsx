@@ -138,7 +138,7 @@ export default function MostPopularProd() {
               </div>
 
               <div
-                className={`absolute w-[90px] h-[30px] top-5 right-5 bg-secondary-dark flex flex-col justify-center items-center ${
+                className={`absolute w-[90px] h-[30px] top-5 right-5 bg-primary-light flex flex-col justify-center items-center ${
                   item.discount == true || item.soldOut == true
                     ? "block"
                     : "hidden"
@@ -179,19 +179,23 @@ export default function MostPopularProd() {
               >
                 <Button
                   label={`Add to Cart`}
-                  aditClass="h-[40px] text-base flex-grow flex items-center gap-3"
+                  aditClass={`h-[40px] text-base flex-grow flex items-center gap-3 bg-primary-dark ${
+                    item.soldOut == true ? "hidden" : "inline-block"
+                  }`}
                   icon={
                     <FontAwesomeIcon
                       icon={faPlus}
-                      className="text-white text-xl"
+                      className="text-white text-xl "
                     />
                   }
                 />
 
                 <Button
                   label={`Details`}
-                  href={"#"}
-                  aditClass="h-[40px] text-base bg-secondary-dark"
+                  href={`/details/${item.id}`}
+                  aditClass={`h-[40px] text-base bg-secondary-dark ${
+                    item.soldOut == true ? "grow text-center" : ""
+                  }`}
                   icon=""
                 />
               </div>

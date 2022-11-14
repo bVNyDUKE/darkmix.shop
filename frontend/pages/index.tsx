@@ -5,7 +5,6 @@ import SearchBar from "../components/SearchBar";
 import ShopInner from "../components/Shop/ShopInner";
 import MostPopularProd from "../components/Shop/MostPopularProd";
 import ShopCategories from "../components/Shop/ShopCategories";
-
 export default function Home() {
   return (
     <div className="bg-gray-100">

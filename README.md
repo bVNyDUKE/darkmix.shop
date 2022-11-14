@@ -3,5 +3,5 @@
 ### TODO
 
 - [ ] Add product endpoints
-- [ ] Add details page
+- [*] Add details page
 - [ ] Add search page (shop)

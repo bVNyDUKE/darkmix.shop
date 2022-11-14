@@ -17,8 +17,8 @@ export default function NavBar() {
     <header className="bg-primary-light p-2.5">
       <div className="container mx-auto">
         {/* Nav part 1 [likedin, git and welcome text] */}
-        <div className="px-1 border-b border-white flex justify-between items-center">
-          <div className="text-white text-3xl mr-2 mb-2.5 flex gap-2">
+        <div className="px-1 border-b border-white flex justify-between items-center gap-3">
+          <div className="text-white text-3xl md:mr-2 md:mb-2.5 flex gap-2">
             <a href="#" target="_blank" className="hover:text-slate-200">
               <FontAwesomeIcon icon={faLinkedin} />
             </a>
@@ -27,8 +27,9 @@ export default function NavBar() {
             </a>
           </div>
           {/* Welcome text above */}
-          <div className="text-md text-white">
-            Welcome to DarkMix eCommerce website!
+          <div className="text-sm text-white">
+            <span className="hidden md:inline-block">Welcome to</span> DarkMix
+            eCommerce website!
           </div>
           <div>&nbsp;</div>
         </div>
