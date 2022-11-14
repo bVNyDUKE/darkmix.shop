@@ -2,7 +2,7 @@ import Link from "next/link";
 
 type ButtonProps = {
   href?: string;
-  label: string;
+  label: any;
   aditClass: string;
   icon: any;
   onClick?: () => void;
@@ -19,7 +19,7 @@ export default function Button({
     return (
       <Link
         href={href}
-        className={` inline-block py-2 px-6 bg-primary-dark text-white text-lg hover:translate-y-[-3px] hover:shadow-lg ease-in duration-100 ${aditClass}`}
+        className={`inline-block py-2 px-6 text-white text-lg hover:translate-y-[-3px] hover:shadow-lg ease-in duration-100 ${aditClass}`}
       >
         {icon}
         {label}
@@ -30,7 +30,7 @@ export default function Button({
   return (
     <button
       onClick={onClick}
-      className={` inline-block py-2 px-6 bg-primary-dark text-white text-lg hover:translate-y-[-3px] hover:shadow-lg ease-in duration-100 ${aditClass}`}
+      className={`inline-block py-2 px-6 text-white text-lg hover:translate-y-[-3px] hover:shadow-lg ease-in duration-100 ${aditClass}`}
     >
       {icon}
       {label}

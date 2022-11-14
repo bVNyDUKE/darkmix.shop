@@ -14,7 +14,7 @@ export default function SearchBar() {
     <>
       {/* Category, Compare i Search placeholder */}
 
-      <div className="mt-16 flex md:justify-between justify-center">
+      <div className="mt-8 md:mt-16 flex md:justify-between justify-center">
         {/* Left */}
         <div className="flex gap-3 items-center">
           {/* Category select */}
@@ -29,7 +29,7 @@ export default function SearchBar() {
             </button>
 
             <div
-              className={`bg-gray-100 flex-col rounded mt-1 p-2 text-sm w-36 absolute top-12 left-0 bg-white ${
+              className={`flex-col rounded mt-1 p-2 text-sm w-36 absolute top-12 left-0 bg-white ${
                 catDrop == true ? "flex" : "hidden"
               }`}
               id="dropdown"
