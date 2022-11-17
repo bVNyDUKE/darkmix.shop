@@ -15,6 +15,9 @@ module.exports = {
         "search-color": "#9F9F9F",
         "green-primary": "#1B9AAA",
       },
+      fontFamily: {
+        'body': ['"DM Sans"', 'sans-serif'],
+      }
     },
   },
   plugins: [],
