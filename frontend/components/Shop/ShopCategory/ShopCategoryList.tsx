@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import img1 from "../../public/categories/category1.webp";
-import img2 from "../../public/categories/category2.webp";
-export default function ShopCategory({props} : {props: any}){
+import img1 from "../../../public/categories/category1.webp";
+import img2 from "../../../public/categories/category2.webp";
+
+export default function ShopCategory({props} : {props:any}){
     return(
         <div
             key={props.id}

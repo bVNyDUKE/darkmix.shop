@@ -11,8 +11,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 
-import {formatPrice} from "../Shop/index";
-import {formatRegularPrice} from "../Shop/index";
+import {formatPrice} from "./mainFunctions";
+import {formatRegularPrice} from "./mainFunctions";
 
 export default function ProductItem({props} : {props: any}){
     return (
