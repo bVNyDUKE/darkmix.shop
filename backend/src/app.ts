@@ -12,6 +12,16 @@ app.get("/products", async (_, res) => {
   return res.json(products);
 });
 
+app.get("/products/:id", async (req, res) => {
+  const product = await prisma.product.findUnique({
+    where: {
+      id: parseInt(req.params.id),
+    },
+  });
+
+  return res.json(product);
+});
+
 app.get("/categories", async (_, res) => {
   const categories = await prisma.category.findMany();
   return res.json(categories);
