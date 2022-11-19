@@ -14,6 +14,7 @@ const createRandomProduct = () => {
       Available.WEB_ONLY,
       Available.UNAVAILABLE,
     ]),
+    description: faker.commerce.productDescription(),
     discount: faker.helpers.maybe(() => "20%", { probability: 0.1 }) ?? null,
     type: faker.commerce.department(),
     view: parseInt(faker.random.numeric(2)),

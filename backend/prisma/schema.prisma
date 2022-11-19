@@ -13,20 +13,21 @@ datasource db {
 }
 
 model Product {
-  id         Int       @id @default(autoincrement())
-  name       String    @db.VarChar(255)
-  category   Category  @relation(fields: [categoryId], references: [id])
-  categoryId Int
-  brand      String    @db.VarChar(255)
-  price      Int
-  available  Available @default(IN_STORE)
-  discount   String?
-  type       String
-  view       Int
-  promoted   Boolean   @default(false)
-  type_info  Json      @db.Json
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(255)
+  category    Category  @relation(fields: [categoryId], references: [id])
+  categoryId  Int
+  brand       String    @db.VarChar(255)
+  price       Int
+  available   Available @default(IN_STORE)
+  discount    String?
+  description String?    @db.Text
+  type        String
+  view        Int
+  promoted    Boolean   @default(false)
+  type_info   Json      @db.Json
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   @@index([categoryId])
 }
