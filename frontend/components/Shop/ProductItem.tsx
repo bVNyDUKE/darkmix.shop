@@ -9,19 +9,20 @@ import {
   faHeart,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
+import {Product} from '../../type';
 
 
 import {formatPrice} from "./mainFunctions";
 import {formatRegularPrice} from "./mainFunctions";
 
-export default function ProductItem({props} : {props: any}){
+export default function ProductItem({product} : {product: Product}){
     return (
         <div
             className="border border-[#dadada] hover:shadow-lg hover:translate-y-[-3px] ease-in duration-100 bg-white group"
         >
           {/* Image with buttons */}
           <div className="relative">
-            <Link href={`./details/${props.id}`}>
+            <Link href={`./details/${product.id}`}>
               <Image
                 src={img}
                 alt="Picture of the author"
@@ -50,13 +51,13 @@ export default function ProductItem({props} : {props: any}){
 
             <div
               className={`absolute w-[90px] h-[30px] top-5 right-5 bg-primary-light flex flex-col justify-center items-center ${
-                props.discount !== null
+                product.discount !== null
                   ? "block"
                   : "hidden"
               }`}
             >
               <span className="text-white font-semibold">
-                {props.discount}
+                {product.discount}
               </span>
             </div>
 
@@ -64,7 +65,7 @@ export default function ProductItem({props} : {props: any}){
 
             <div
               className={`absolute w-[90px] h-[30px] top-5 right-5 bg-primary-light flex flex-col justify-center items-center ${
-                props.available == "UNAVAILABLE"
+                product.available == "UNAVAILABLE"
                   ? "block"
                   : "hidden"
               }`}
@@ -78,18 +79,18 @@ export default function ProductItem({props} : {props: any}){
           </div>
           {/* Header and Price */}
           <div className="p-5">
-            <h4 className="font-semibold text-lg">{props.name}</h4>
+            <h4 className="font-semibold text-lg">{product.name}</h4>
             <div className="my-2.5 flex gap-3 items-center">
               <span
                 className={`${
-                  props.discount != null ? "inline-block" : "hidden"
+                  product.discount != null ? "inline-block" : "hidden"
                 } line-through text-2xl text-slate-300`}
               >
-                ${formatRegularPrice(props.discount, props.price)}
+                ${formatRegularPrice(product.discount, product.price)}
               </span>
               <span className="text-2xl text-green-primary font-semibold">
                 $
-                {formatPrice(props.price)}
+                {formatPrice(product.price)}
               </span>
             </div>
             <div
@@ -98,7 +99,7 @@ export default function ProductItem({props} : {props: any}){
               <Button
                 label={`Add to Cart`}
                 aditClass={`h-[40px] text-base flex-grow flex items-center gap-3 bg-primary-dark ${
-                  props.available == "UNAVAILABLE" ? "hidden" : "inline-block"
+                  product.available == "UNAVAILABLE" ? "hidden" : "inline-block"
                 }`}
                 icon={
                   <FontAwesomeIcon
@@ -110,9 +111,9 @@ export default function ProductItem({props} : {props: any}){
 
               <Button
                 label={`Details`}
-                href={`/details/${props.id}`}
+                href={`/details/${product.id}`}
                 aditClass={`h-[40px] text-base bg-secondary-dark ${
-                  props.available == "UNAVAILABLE" ? "grow text-center" : ""
+                  product.available == "UNAVAILABLE" ? "grow text-center" : ""
                 }`}
                 icon=""
               />
