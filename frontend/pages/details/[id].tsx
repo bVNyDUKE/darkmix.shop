@@ -1,27 +1,41 @@
+import { useState } from "react";
+import { GetServerSideProps } from "next";
+
+import ImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
+
 import Header from "../../components/Layout/Header";
 import Footer from "../../components/Layout/Footer";
 import Breadcrumbs from "../../components/Layout/Breadcrumbs";
-import ImageGallery from "react-image-gallery";
-import "react-image-gallery/styles/css/image-gallery.css";
 import Button from "../../components/Button";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
   faHeart,
   faArrowsRotate,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
 
-export default function ItemDetails() {
-  const product_info = {
-    id: "1",
-    title: "Shop Tittle Example with a little bit longer name for product1",
-    regular_price: 300,
-    discount: true,
-    discount_price: 250,
-    hover: false,
-    soldOut: false,
-  };
+import {Product} from '../../type';
+
+import {formatPrice} from "../../components/Shop/mainFunctions";
+import {formatRegularPrice} from "../../components/Shop/mainFunctions";
+
+
+export const getServerSideProps: GetServerSideProps<{ detailProduct: Product[]}> = async (ctx) => {
+  const id = ctx.params?.id as string;
+  const res = await fetch(`http://localhost:8000/Products/${id}`)
+  const detailProduct: Product[] = await res.json()
+
+  return {
+    props: {
+      detailProduct
+    },
+  }
+}
+
+export default function ItemDetails({detailProduct} : {detailProduct: Product}) {
+
   const images = [
     {
       original:
@@ -44,17 +58,10 @@ export default function ItemDetails() {
     },
   ];
 
-  const calculateDiscount = (regular: number, discounted: number) => {
-    return ((1 - discounted / regular) * 100).toFixed(0);
-  };
-
   const [counter, setCounter] = useState(1);
 
   function updateNumItems(number: number, action: string) {
     const newValue = action == "increase" ? number + 1 : number - 1;
-
-    console.log(newValue);
-
     newValue > 0 ? setCounter(newValue) : setCounter(0);
   }
 
@@ -64,7 +71,7 @@ export default function ItemDetails() {
       <div className="container mx-auto mt-8 md:mt-16">
         <Breadcrumbs links={["Details"]} />
 
-        <div className="flex flex-col lg:flex-row">
+        {detailProduct == null ? <div className="text-3xl text center">Product not found</div> : <div className="flex flex-col lg:flex-row">
           <div className="lg:w-2/6 xl:w-3/6">
             <ImageGallery items={images} showPlayButton={false} />
           </div>
@@ -72,24 +79,27 @@ export default function ItemDetails() {
             {/* Title and discount box */}
             <div className="flex items-center gap-4">
               <h2 className="text-primary-dark font-semibold text-3xl grow">
-                POC-515 Some text for item
+                {detailProduct.name}
               </h2>
 
               {/* Discount Box */}
               <div
-                className={` w-[90px] h-[30px] bg-primary-light flex flex-col justify-center items-center ${
-                  product_info.discount == true || product_info.soldOut == true
+                className={`w-[90px] h-[30px] bg-primary-light flex flex-col justify-center items-center ${
+                  detailProduct.discount !== null
                     ? "block"
                     : "hidden"
                 }`}
               >
                 <span className="text-white font-semibold">
-                  {product_info.soldOut == true
-                    ? `Soldout`
-                    : `${calculateDiscount(
-                        product_info.regular_price,
-                        product_info.discount_price
-                      )}%`}
+                  {detailProduct.discount}
+                </span>
+              </div>
+
+              <div
+                className={`w-[90px] h-[30px] bg-primary-light flex flex-col justify-center items-center ${detailProduct.available == "UNAVAILABLE" ? 'block' : 'hidden'}`}
+              >
+                <span className={`text-white font-semibold `}>
+                    Soldout
                 </span>
               </div>
             </div>
@@ -97,29 +107,19 @@ export default function ItemDetails() {
             <div className="my-6 flex gap-6 items-center">
               <span
                 className={`${
-                  product_info.discount == true ? "inline-block" : "hidden"
+                  detailProduct.discount !== null  ? "inline-block" : "hidden"
                 } line-through text-3xl text-slate-300`}
               >
-                ${product_info.regular_price}
+                {formatRegularPrice(detailProduct.discount, detailProduct.price)}
               </span>
               <span className="text-3xl text-green-primary font-semibold">
-                $
-                {product_info.discount == true
-                  ? product_info.discount_price
-                  : product_info.regular_price}
+                ${formatPrice(detailProduct.price)}
               </span>
             </div>
 
             {/* Description */}
             <div className="text-secondary-dark">
-              Duis non tempus magna. Donec tincidunt quam mollis leo auctor, non
-              ornare metus lobortis. Duis tincidunt maximus dolor, vitae auctor
-              augue facilisis ut. Nullam ultrices sit amet augue vitae
-              consectetur. Pellentesque ultricies odio tellus, vitae auctor dui
-              ornare vitae. Integer tincidunt lacus a ipsum convallis, eu
-              laoreet elit interdum. In in pretium odio, non consequat arcu. In
-              et tempor risus, eget pharetra sapien. Nunc in nulla in massa
-              finibus egestas.
+              {detailProduct.description}
             </div>
 
             <div className="my-10 flex gap-4">
@@ -157,7 +157,7 @@ export default function ItemDetails() {
             >
               <Button
                 label={`Add to Cart`}
-                aditClass="h-[40px] text-base flex-grow flex items-center gap-3 bg-primary-dark w-full"
+                aditClass={`h-[40px] text-base flex-grow items-center gap-3 bg-primary-dark w-full ${detailProduct.available == "UNAVAILABLE" ? 'hidden' : 'flex'}`}
                 icon={
                   <FontAwesomeIcon
                     icon={faPlus}
@@ -189,7 +189,8 @@ export default function ItemDetails() {
               />
             </div>
           </div>
-        </div>
+        </div>}
+        
       </div>
       <Footer />
     </>

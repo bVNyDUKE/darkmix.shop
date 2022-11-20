@@ -11,7 +11,8 @@ export type Product = {
     type: string;
     type_info: string;
     updatedAt: string;
-    view: number
+    view: number,
+    description: string
   }
   
   export type Category = {
