@@ -27,6 +27,17 @@ app.get("/products/:id", async (req, res) => {
   return res.json(product);
 });
 
+app.get("/popular", async (_, res) => {
+  const result = await prisma.product.findMany({
+    orderBy: {
+      view: "desc",
+    },
+    take: 10,
+  });
+
+  res.json(result);
+});
+
 app.get("/search", async (req, res) => {
   if (!req.query.name) {
     return res.json({});

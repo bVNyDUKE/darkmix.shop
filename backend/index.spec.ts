@@ -19,6 +19,14 @@ test("GET /products:id", async () => {
   expect(response.body).toBe<Product>;
 });
 
+test("GET /popular", async () => {
+  const response = await api.get("/popular");
+  const contents = response.body.map((r: any) => r.content);
+
+  expect(contents).toHaveLength(10);
+  expect(contents[0]).toBe<Product>;
+});
+
 test("GET /search", async () => {
   const response = await api.get("/search?name=fantastic");
   const contents = response.body.map((r: any) => r.content);
