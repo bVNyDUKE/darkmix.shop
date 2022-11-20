@@ -21,10 +21,8 @@ export const getServerSideProps: GetServerSideProps<{ allProducts: Product[]; mo
   const res = await fetch(`http://localhost:8000/Products`)
   const allProducts: Product[] = await res.json()
 
-  const sorted_result = allProducts.sort((a:any, b:any) => b.view - a.view);
-
   const maxProducts = 8;
-  let mostPopular = sorted_result.slice(0, maxProducts);
+  let mostPopular = allProducts.slice(0, maxProducts);
 
 
   const resCat = await fetch(`http://localhost:8000/Categories`)
