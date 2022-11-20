@@ -1,11 +1,13 @@
 import express from "express";
 import "express-async-errors";
 import cors from "cors";
+import helmet from "helmet";
 import prisma from "./db";
 import errorHandler from "./middleware/errorHandler";
 
 const app = express();
 
+app.use(helmet());
 app.use(cors());
 
 app.get("/", async (_, res) => res.json("Hello world"));
