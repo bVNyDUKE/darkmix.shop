@@ -12,6 +12,14 @@ test("GET /products", async () => {
   expect(contents[0]).toBe<Product>;
 });
 
+test("GET /products?limit", async () => {
+  const response = await api.get("/products?limit=10");
+  const contents = response.body.map((r: any) => r.content);
+
+  expect(contents).toHaveLength(10);
+  expect(contents[0]).toBe<Product>;
+});
+
 test("GET /products:id", async () => {
   const response = await api.get("/products/1");
 

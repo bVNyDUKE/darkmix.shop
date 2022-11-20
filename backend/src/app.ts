@@ -12,8 +12,18 @@ app.use(cors());
 
 app.get("/", async (_, res) => res.json("Hello world"));
 
-app.get("/products", async (_, res) => {
-  const products = await prisma.product.findMany();
+app.get("/products", async (req, res) => {
+  const take = req.query.limit
+    ? parseInt(req.query.limit.toString())
+    : undefined;
+
+  const products = await prisma.product.findMany({
+    orderBy: {
+      view: "desc",
+    },
+    take,
+  });
+
   return res.json(products);
 });
 
